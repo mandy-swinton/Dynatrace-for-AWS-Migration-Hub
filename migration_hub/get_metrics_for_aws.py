@@ -17,8 +17,8 @@ DT_GET_METRICS_MEMORY_URL = DT_TENANT + "/api/v2/metrics/query?metricSelector=bu
 DT_GET_DISK_USE_URL = DT_TENANT + '/api/v2/metrics/query?metricSelector=builtin:host.disk.usedPct:filter(eq("dt.entity.host",{selected_host})):merge("dt.entity.disk"):avg:names&from=-14d&to=now&resolution=1h'
 headers =  headers = {"Authorization": DT_AUTHTOKEN, "Accept": "application/json"}
 csv_headers = ["*Server name", "IP addresses","*Cores", "*Memory (In MB)", "*OS name", "OS architecture","CPU utilization percentage","Memory utilization percentage"]
-aws_headers = ["entity_id", "CPU.NumberOfProcessors","CPU.NumberOfCores","RAM.TotalSizeInMB","RAM.UsedSizeInMB.Avg","RAM.UsedSizeInMB.Max","CPU.UsagePct.Avg","CPU.UsagePct.Max"]
-aws_tab2_headers = ["entity_id", "maxCpuUsagePctDec (%)", "avgCpuUsagePctDec (%)", "maxRamUsagePctDec (%)","avgRamUtlPctDec (%)","Uptime","Storage-Utilization %"]
+aws_headers = ["ExternalId","CPU.NumberOfCores","RAM.TotalSizeInMB","RAM.UsedSizeInMB.Avg","RAM.UsedSizeInMB.Max","CPU.UsagePct.Avg","CPU.UsagePct.Max"]
+aws_tab2_headers = ["ExternalId", "maxCpuUsagePctDec (%)", "avgCpuUsagePctDec (%)", "maxRamUsagePctDec (%)","avgRamUtlPctDec (%)","Uptime","Storage-Utilization %"]
 
 
 #helper function: make request
@@ -195,8 +195,6 @@ def format_dynatrace_data(entity_arr, memory_max_map, cpu_max_map, memory_avg_ma
         properties = entity['properties']
 
         entity_id = entity['entityId']
-        #CPU.NumberOfProcessors
-        cpu_processors = "N/A"
         #"CPU.NumberOfCores"
         if 'cpuCores' in properties:
             cpu_cores = properties['cpuCores']
@@ -223,7 +221,7 @@ def format_dynatrace_data(entity_arr, memory_max_map, cpu_max_map, memory_avg_ma
         max_cpu = 0
         if entity_id in cpu_max_map.keys():
             max_cpu = round(cpu_max_map[entity_id],2)
-        row = [entity_id,cpu_processors,cpu_cores,total_mem,avg_mem,max_memory,avg_cpu,max_cpu]
+        row = [entity_id,cpu_cores,total_mem,avg_mem,max_memory,avg_cpu,max_cpu]
         csv.append(row)
 
         #"maxCpuUsagePctDec (%)"
