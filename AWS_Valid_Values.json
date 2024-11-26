@@ -1,0 +1,5 @@
+{
+    "ApplicationType": ["Tomcat", "JBoss", "Spring", "IIS", "Mongo DB", "DB2", "Maria DB", "MySQL", "Oracle", "SQLServer", "Sybase", "PostgreSQLServer", "Cassandra", "IBM WebSphere", "Oracle WebLogic", "Java Generic"],
+    "ProgrammingLanguage": ["Java", "CSharp"]
+
+}

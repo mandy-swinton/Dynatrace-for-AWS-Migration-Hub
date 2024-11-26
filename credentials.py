@@ -1,0 +1,3 @@
+#DO NOT COMMIT CREDENTIALS
+TENANT = 'https://abc123.live.dynatrace.com'
+API_KEY = 'Api-Token dt0c01.122345ABCDEF.12345ABCDEF'
